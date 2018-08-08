@@ -1,4 +1,4 @@
-package co.com.almundo.callcenter.config;
+package com.co.almundo.callcenter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
