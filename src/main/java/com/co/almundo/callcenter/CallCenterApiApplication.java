@@ -21,16 +21,18 @@ public class CallCenterApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CallCenterApiApplication.class, args);
 		CallCenterApiApplication callCenter = new CallCenterApiApplication();
-		callCenter.executeCallCenter();
-	}
-	
-	public void executeCallCenter() 
-	{
-		// Condiciones de entrada (capacidad de llamadas a encolar y equipo de trabajo del call center)
+		// Condiciones de entrada (capacidad de llamadas a encolar y equipo de trabajo
+		// del call center)
 		int capacityCalls = 20;
 		int numOperators = 5;
 		int numSupervisors = 3;
 		int numDirectors = 2;
+		int quantityCalls = 20;
+		callCenter.executeCallCenter(capacityCalls, numOperators, numSupervisors, numDirectors, quantityCalls);
+	}
+	
+	public String executeCallCenter(int capacityCalls, int numOperators, int numSupervisors, int numDirectors, int quantityCalls) 
+	{
 		
 		// se define la capacidad de la cola de llamadas y se crean 3 colas correspondientes a operadores, supervisores y directores
 		Dispatcher dispatcher = new Dispatcher(capacityCalls, numOperators, numSupervisors, numDirectors);
@@ -51,9 +53,9 @@ public class CallCenterApiApplication {
         supervisorsAgents.forEach(executorService::submit); // Empleados supervisores que atienden las llamadas
         directorsAgents.forEach(executorService::submit); // Empleados directores que atienden las llamadas
         
-        // Se ejecuta la prueba con 10 llamadas concurrentes
-        int quantityCalls = 20;
+        // Se ejecuta la prueba con n llamadas concurrentes
         UnitTest unitTest = new UnitTest(dispatcher, quantityCalls);
         executorService.submit(unitTest); // Encargado de lanzar las llamadas ejemplo
+        return "Llamadas atendidas correctamente";
 	}
 }
